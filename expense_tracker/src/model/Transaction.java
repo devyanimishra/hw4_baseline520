@@ -6,6 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The Transaction class represents a simple transaction model.
+ * This class contains methods to generate TimeStamps and retrieve amount and category.
+ * This class applies the Observer design pattern.
+ *
+ * @author Devyani Dhruvi
+ * @version 2.0
+ * @since 2023-11-29
+ */
+
 public class Transaction {
 
   public static final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");

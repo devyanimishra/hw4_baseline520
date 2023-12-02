@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The ExpenseTrackerModel class implements the expense tracker model.
+ * It applies the Observer design pattern.
+ * @version 2.0
+ * @author Devyani Dhruvi
+ * @since 2023-12-01
+ */
+
 public class ExpenseTrackerModel {
 
   //encapsulation - data integrity
@@ -12,12 +20,23 @@ public class ExpenseTrackerModel {
 
   // This is applying the Observer design pattern.                          
   // Specifically, this is the Observable class. 
+  /**
+   * This method creates an ExpenseTrackerModel with new list for transactions and filter variables.
+   * It applies the Observer design pattern, which is the Observable class.
+   */
     
   public ExpenseTrackerModel() {
     transactions = new ArrayList<Transaction>();
     matchedFilterIndices = new ArrayList<Integer>();
   }
 
+  /**
+   * This method will add a new transaction to the model.
+   *
+   * @param t - The Transaction to be added. Cannot be a null value.
+   * @throws IllegalArgumentException - if the new transaction added is null value.
+   */
+  
   public void addTransaction(Transaction t) {
     // Perform input validation to guarantee that all transactions added are non-null.
     if (t == null) {
@@ -28,16 +47,35 @@ public class ExpenseTrackerModel {
     matchedFilterIndices.clear();
   }
 
+  /**
+   * This method will remove a transaction from the model.
+   *
+   * @param t The Transaction to be removed.
+   */
+  
   public void removeTransaction(Transaction t) {
     transactions.remove(t);
     // The previous filter is no longer valid.
     matchedFilterIndices.clear();
   }
 
+  /**
+   * This method is used to retrieve an unmodifiable list of transactions from the model.
+   *
+   * @return An unmodifiable list of transactions.
+   */
+  
   public List<Transaction> getTransactions() {
     //encapsulation - data integrity
     return Collections.unmodifiableList(new ArrayList<>(transactions));
   }
+  
+  /**
+   * This method will set the matched filter indices for the model.
+   *
+   * @param newMatchedFilterIndices - The new list of matched filter indices. Cannot be a null value.
+   * @throws IllegalArgumentException - if the new list is null or contains invalid indices.
+   */
 
   public void setMatchedFilterIndices(List<Integer> newMatchedFilterIndices) {
       // Perform input validation
@@ -54,6 +92,12 @@ public class ExpenseTrackerModel {
       this.matchedFilterIndices.addAll(newMatchedFilterIndices);
   }
 
+  /**
+   * This method will retrieve a copy of the current matched filter indices.
+   *
+   * @return A copy of the matched filter indices.
+   */
+  
   public List<Integer> getMatchedFilterIndices() {
       // For encapsulation, copy out the output list
       List<Integer> copyOfMatchedFilterIndices = new ArrayList<Integer>();
@@ -62,12 +106,10 @@ public class ExpenseTrackerModel {
   }
 
   /**
-   * Registers the given ExpenseTrackerModelListener for
-   * state change events.
+   * This method will register the ExpenseTrackerModelListener for state change events.
    *
-   * @param listener The ExpenseTrackerModelListener to be registered
-   * @return If the listener is non-null and not already registered,
-   *         returns true. If not, returns false.
+   * @param listener - The ExpenseTrackerModelListener to be registered
+   * @return a boolean value - if the listener is not null and not registered previously, it will return true. If not, it will return false.
    */   
   public boolean register(ExpenseTrackerModelListener listener) {
       // For the Observable class, this is one of the methods.
@@ -76,6 +118,12 @@ public class ExpenseTrackerModel {
       return false;
   }
 
+  /**
+   * This method will retrieve the number of registered listeners.
+   *
+   * @return The number of registered listeners.
+   */
+  
   public int numberOfListeners() {
       // For testing, this is one of the methods.
       //
@@ -83,6 +131,13 @@ public class ExpenseTrackerModel {
       return 0;
   }
 
+  /**
+   * This method will check if the given listener is registered previously.
+   *
+   * @param listener - The ExpenseTrackerModelListener to be checked.
+   * @return a boolean value - True if the listener is registered or else false is returned.
+   */
+  
   public boolean containsListener(ExpenseTrackerModelListener listener) {
       // For testing, this is one of the methods.
       //
