@@ -45,7 +45,6 @@ public class ExpenseTrackerController {
     
     Transaction t = new Transaction(amount, category);
     model.addTransaction(t);
-    view.update(model);
     return true;
   }
 
@@ -57,26 +56,25 @@ public class ExpenseTrackerController {
       List<Transaction> filteredTransactions = filter.filter(transactions);
       List<Integer> rowIndexes = new ArrayList<>();
       for (Transaction t : filteredTransactions) {
-        int rowIndex = transactions.indexOf(t);
-        if (rowIndex != -1) {
-          rowIndexes.add(rowIndex);
+          int rowIndex = transactions.indexOf(t);
+          if (rowIndex != -1) {
+            rowIndexes.add(rowIndex);
+          }
         }
+        model.setMatchedFilterIndices(rowIndexes);
+      } else {
+        JOptionPane.showMessageDialog(view, "No filter applied");
+        view.toFront();
       }
-      model.setMatchedFilterIndices(rowIndexes);
-      view.update(model);
+      view.update(model); // Instead of updating the view directly, notify the model to update the view
     }
-    else{
-      JOptionPane.showMessageDialog(view, "No filter applied");
-      view.toFront();}
-
-  }
+   
 
   //for undoing any selected transaction
   public boolean undoTransaction(int rowIndex) {
     if (rowIndex >= 0 && rowIndex < model.getTransactions().size()) {
       Transaction removedTransaction = model.getTransactions().get(rowIndex);
       model.removeTransaction(removedTransaction);
-      view.update(model);
       // The undo was allowed.
       return true;
     }
